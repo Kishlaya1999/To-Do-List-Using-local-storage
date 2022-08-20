@@ -1,0 +1,179 @@
+* {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+}
+
+body {
+     font-family: 'Poppins', sans-serif;
+     height: 100vh;
+     width: 100vw;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+}
+
+.flex-row {
+     display: flex;
+     flex-direction: row;
+     width: 100%;
+}
+
+.flex-col {
+     display: flex;
+     flex-direction: column;
+}
+
+
+/**---------------------------------------------------------------------------- Header (Input box) ---------------------------------------------------------------------------*/
+
+.w100 {
+     width: 100%;
+}
+
+main {
+     justify-content: space-between;
+     align-items: center;
+     height: 600px;
+     width: 450px;
+     border-radius: 10px;
+     /* background-color: hsl(0, 0%, 90%); */
+     box-shadow: 0 0 10px 5px;
+}
+
+header {
+     /* background-color: rgb(255, 255, 255); */
+     align-self: start;
+}
+
+.middle {
+     /* background-color: rgb(255, 255, 255); */
+     position: relative;
+}
+
+footer {
+     /* background-color: rgb(255, 255, 255); */
+}
+
+.input-container {
+     padding: 15px 20px;
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+}
+
+.task-icon-container {
+     background-color: hsl(0deg 0% 92%);
+     width: 42px;
+     height: 40px;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     border-radius: 7px 0 0 7px;
+}
+
+.task-icon-container i {
+     font-size: 20px;
+}
+
+.input-container input {
+     background-color: hsl(0deg 0% 92%);
+     width: 90%;
+     height: 40px;
+     border: none;
+     font-size: 20px;
+     padding: 0 0 0 10px;
+     font-weight: lighter;
+     border-radius: 0 10px 10px 0;
+}
+
+.input-container input:focus {
+     outline: none;
+}
+
+.complete-container {
+     align-items: center;
+     padding: 5px 20px;
+}
+
+.all-complete-container {
+     align-items: center;
+}
+
+.single-task-container {
+     justify-content: space-between;
+     /* background-color: aqua; */
+     background-color: hsl(0deg 0% 92%);
+     align-items: center;
+     height: 60px;
+     padding: 0 20px;
+     border: 3px solid hsl(0deg 0% 0%);
+     border-radius: 5px;
+         width: 95%;
+    /* margin: 10px 0; */
+}
+
+li:nth-child(2n) {
+     /* background-color: blue; */
+     background-color: hsl(0deg 0% 85%);
+}
+
+.todo-tasks-container {
+     overflow-y: scroll;
+     height: 430px;
+     align-items: center;
+     gap: 10px;
+}
+
+.single-task-container i {
+     display: none;
+     transition: all 2s ease;
+}
+
+.single-task-container:hover i {
+     display: block;
+}
+
+.radioBtn-and-task-name span {
+     font-size: 25px;
+     padding: 0 0 0 10px;
+     font-family: cursive;
+}
+
+/* .radioBtn-and-task-name input[type=radio]{
+
+} */
+
+.complete-container span{
+     width: 50%;
+     font-weight: bolder;
+     color: hsl(0deg 0% 40%);
+     font-size: 13px;
+}
+
+.all-complete-container{
+     gap: 5px;
+}
+
+.task-status-bar{
+     padding: 0 7px 5px;
+}
+
+.task-left span{
+     font-size: 14px;
+     color: hsl(0deg 0% 60%);
+     font-weight: 900;
+
+}
+
+.task-list-status span{
+     padding: 0 4px;
+     font-size: 14px;
+     font-weight: 900;
+     color: hsl(0deg 0% 60%);
+}
+
+input[type=radio]:checked + label{
+     text-decoration: line-through;
+     color: grey;
+}
