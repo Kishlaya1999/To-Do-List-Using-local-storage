@@ -1,79 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
      <meta charset="UTF-8">
      <meta http-equiv="X-UA-Compatible" content="IE=edge">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+          integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
      <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;1,100;1,400&display=swap" rel="stylesheet">
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link rel="shortcut icon" href="./list.ico" type="image/x-icon">
+     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;1,100;1,400&display=swap"
+          rel="stylesheet">
      <link rel="stylesheet" href="./styles.css">
 
-
-     
      <title>TODO</title>
 </head>
+
 <body>
      
      <main class="flex-col">
           
           <section class="top-section w100">
+               <!-- Top of Todo List Section -->
                <header class="top flex-col">
+                    <!-- Input Bar -->
                     <div class="input-container">
                          <div class="task-icon-container">
                               <i class="fa-solid fa-list-check"></i>
                          </div>
-                         <input type="text" placeholder="Put your todo list" name="" id="">
+                         <input type="text" placeholder="Put your todo list" name="" id="inputBar" />
+                         <div id="submitBtn" class="task-icon-container plus">
+                              <i class="fa-solid fa-plus"></i>   
+                         </div>
                     </div>
+                    <!-- Input Bar End -->
+                    <!-- Complete task and clear task bar -->
                     <div class="complete-container flex-row">
                          <div class="all-complete-container flex-row">
                               <i class="fa-solid fa-square-check"></i>
-                              <span>Complete all task</span>
+                              <span id="completeAllTasksBtn">Complete all task</span>
                          </div>
-                         <span>Clear Completed</span>
+                         <span id="clearCompleteBtn">Clear Completed</span>
                     </div>
+                    <!-- Complete task and clear task bar End -->
                </header>
+               <!-- Top of Todo List Section End -->
                <hr style="margin: 10px;">
+               <!-- Todo List Container -->
                <section class="middle">
-                    <ul class="todo-tasks-container flex-col" id="">
-                         <li class="single-task-container flex-row">
-                              <div class="radioBtn-and-task-name">
-                                   <input type="radio" name="" id="" for="one">
-                                   <label for="one">TODO</label>
+                    <ul class="all-tasks-container flex-col" id="todo-list-items">
+                         <!-- Todo List Items -->
+                         <!-- <li class="single-task-container flex-row">
+                              <div class="check-and-task-name">
+                                   <i class="taskDoneBtn fa-solid fa-circle-check"></i>
+                                   <label for="one" class="taskName">Hi</label>
                               </div>
-                              <i class="fa-solid fa-xmark"></i>
-                         </li>
-                         <li class="single-task-container flex-row">
-                              <div class="radioBtn-and-task-name">
-                                   <input type="radio" name="" id="" for="one">
-                                   <label for="one">TODO</label>
-                              </div>
-                              <i class="fa-solid fa-xmark"></i>
-                         </li>
-                         <li class="single-task-container flex-row">
-                              <div class="radioBtn-and-task-name">
-                                   <input type="radio" name="" id="" for="one">
-                                   <label for="one">TODO</label>
-                              </div>
-                              <i class="fa-solid fa-xmark"></i>
-                         </li>
+                              <i class="deleteBtn fa-solid fa-trash-can"></i>
+                         </li> -->
+                         <!-- Todo List Items End -->
                     </ul>
+                    <ul class="uncomplete-tasks-container flex-col" id="inCompleteTaskContainer"></ul>
+                    <ul class="complete-tasks-container flex-col" id="completeTaskContainer">Complete</ul>
                </section>
+               <!-- Todo List Container End-->
           </section>
-          <!-- <hr> -->
+          <!-- Tabs Below Todo List -->
           <footer class="task-status-bar flex-row">
                <section class="flex-row task-left">
-                    <span class="number-of-task-left">5</span>
+                    <span id="taskLeftCount">&nbsp;&nbsp; 5</span>
                     <span>&nbsp; tasks left</span>
                </section>
-               <section class="flex-row task-list-status">
-                    <span>All</span>
-                    <span>Uncomplete</span>
-                    <span>Completed</span>
+               <section class="flex-row tabs">
+                    <span class="tabsItem active-tab" id="all-text">All</span>
+                    <span class="tabsItem" id="incomplete-text">Incomplete</span>
+                    <span class="tabsItem" id="complete-text">Completed</span>
                </section>
           </footer>
+          <!-- Tabs Below Todo List End -->
      </main>
-
+     <script src="./scripts.js"></script>
 </body>
 </html>

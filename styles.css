@@ -24,9 +24,6 @@ body {
      flex-direction: column;
 }
 
-
-/**---------------------------------------------------------------------------- Header (Input box) ---------------------------------------------------------------------------*/
-
 .w100 {
      width: 100%;
 }
@@ -41,18 +38,10 @@ main {
      box-shadow: 0 0 10px 5px;
 }
 
+/**---------------------------------------------------------------- Header (Input box)-------------------------------------------------------*/
 header {
      /* background-color: rgb(255, 255, 255); */
      align-self: start;
-}
-
-.middle {
-     /* background-color: rgb(255, 255, 255); */
-     position: relative;
-}
-
-footer {
-     /* background-color: rgb(255, 255, 255); */
 }
 
 .input-container {
@@ -72,23 +61,37 @@ footer {
      border-radius: 7px 0 0 7px;
 }
 
+.plus {
+     border-radius: 0 7px 7px 0;
+     background-color: hsl(78, 56%, 55%);
+     cursor: pointer;
+}
+
+.plus:hover {
+     background-color: #91BA35;
+}
+
 .task-icon-container i {
      font-size: 20px;
 }
 
 .input-container input {
      background-color: hsl(0deg 0% 92%);
-     width: 90%;
+     width: 80%;
      height: 40px;
      border: none;
      font-size: 20px;
      padding: 0 0 0 10px;
      font-weight: lighter;
-     border-radius: 0 10px 10px 0;
+     /* border-radius: 0 10px 10px 0; */
 }
 
 .input-container input:focus {
      outline: none;
+}
+
+input::placeholder {
+     font-size: 1rem;
 }
 
 .complete-container {
@@ -100,17 +103,37 @@ footer {
      align-items: center;
 }
 
+.complete-container span {
+     width: 50%;
+     font-weight: bolder;
+     color: hsl(0deg 0% 40%);
+     font-size: 13px;
+     cursor: pointer;
+}
+
+.all-complete-container {
+     gap: 5px;
+}
+
+/**-------------------------------------------------------Middle (TODOs box)--------------------------------------*/
+.middle {
+     /* background-color: rgb(255, 255, 255); */
+     position: relative;
+}
+
 .single-task-container {
      justify-content: space-between;
      /* background-color: aqua; */
+     /* align-items: center; */
      background-color: hsl(0deg 0% 92%);
      align-items: center;
      height: 60px;
      padding: 0 20px;
      border: 3px solid hsl(0deg 0% 0%);
      border-radius: 5px;
-         width: 95%;
-    /* margin: 10px 0; */
+     width: 97%;
+     min-height: 50px;
+     /* margin: 10px 0; */
 }
 
 li:nth-child(2n) {
@@ -118,62 +141,85 @@ li:nth-child(2n) {
      background-color: hsl(0deg 0% 85%);
 }
 
-.todo-tasks-container {
+.strikethrough{
+     text-decoration: line-through;
+}
+
+.all-tasks-container,
+.uncomplete-tasks-container,
+.complete-tasks-container {
      overflow-y: scroll;
-     height: 430px;
+     /* height: 430px; */
      align-items: center;
-     gap: 10px;
-}
-
-.single-task-container i {
-     display: none;
-     transition: all 2s ease;
-}
-
-.single-task-container:hover i {
-     display: block;
-}
-
-.radioBtn-and-task-name span {
-     font-size: 25px;
-     padding: 0 0 0 10px;
-     font-family: cursive;
-}
-
-/* .radioBtn-and-task-name input[type=radio]{
-
-} */
-
-.complete-container span{
-     width: 50%;
-     font-weight: bolder;
-     color: hsl(0deg 0% 40%);
-     font-size: 13px;
-}
-
-.all-complete-container{
      gap: 5px;
 }
 
-.task-status-bar{
+/* .single-task-container{
+     display: flex;
+     align-items: center;
+} */
+
+
+.check-and-task-name {
+     display: flex;
+     align-items: center;
+}
+
+.single-task-container i {
+     font-size: 25px;
+     margin-right: 10px;
+     color: hsl(0, 0%, 60%);
+     transition: all 0.3s ease;
+     cursor: pointer;
+}
+
+.single-task-container i.fa-circle-check:hover {
+     color: #91BA35;
+}
+
+.single-task-container i.fa-trash-can {
+     color: #CD0F0F;
+}
+
+/* 
+.single-task-container:hover i.fa-trash-can {
+     display: block;
+} */
+
+.taskName {
+     font-size: 1.2rem;
+     font-weight: 700;
+}
+
+
+/**---------------------------------------------------------------- Status (Task Status Bar)---------------------------------------------------------------*/
+
+footer {
+     background-color: rgb(0, 0, 0);
+     color: white;
+}
+
+.tabs {
      padding: 0 7px 5px;
 }
 
-.task-left span{
+.task-left span {
      font-size: 14px;
      color: hsl(0deg 0% 60%);
      font-weight: 900;
 
 }
 
-.task-list-status span{
+.tabs span {
      padding: 0 4px;
      font-size: 14px;
      font-weight: 900;
      color: hsl(0deg 0% 60%);
+     cursor: pointer;
 }
 
-input[type=radio]:checked + label{
-     text-decoration: line-through;
-     color: grey;
+.active-tab {
+     color: black !important;
+     background-color: white;
+     border-radius: 0 0 5px 5px;
 }
