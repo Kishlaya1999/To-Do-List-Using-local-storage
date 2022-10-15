@@ -1,20 +1,15 @@
+// Selecting elements form DOM
 // Selecting the buttons in the application
 let submitBtn = document.getElementById("submitBtn");
 let completeAllBtn = document.getElementById("completeAllTasksBtn");
 let clearCompleteBtn = document.getElementById("clearCompleteBtn");
-let deleteBtn = document.querySelectorAll(".deleteBtn");
-// Todo : figutre out why querySelectorAll is not working
-let doneBtn = document.querySelectorAll(".taskDoneBtn");
-console.log(doneBtn);
 // Selection the tabs
 let tabsItem = document.querySelectorAll(".tabsItem");
 let allTab = tabsItem[0];                         //All
 let inCompleteTab = tabsItem[1];                  //Uncomplete
 let completedTab = tabsItem[2];                   //Complete
-
 // Selecting Input Bar
 let inputBar = document.getElementById("inputBar");
-
 // Selection of Containeres
 let allTasksContainer = document.getElementById("todo-list-items");
 let inCompleteTaskContainer = document.getElementById("inCompleteTaskContainer");
@@ -26,59 +21,65 @@ inputBar.addEventListener("keydown",addTaskOnEnter);
 allTab.addEventListener("click",showAllTasks);
 inCompleteTab.addEventListener("click",showInCompleteTasks);
 completedTab.addEventListener("click",showCompleteTasks);
-completeAllBtn.addEventListener("click",completeAllTasks)
-// Array.from(document.getElementsByClassName("taskDoneBtn")).forEach(function(item){
-//      item.addEventListener("click",function(e){
-//           e.preventDefault();
-//           console.log(this.parentElement)
-//      })
-// })
+completeAllBtn.addEventListener("click",completeAllTasks);
+clearCompleteBtn.addEventListener("click",clearCompleted);
+
 // Function 
 
 // For adding task to localStorage and the task contain on click of submit button 
 function addTask(e){
      e.preventDefault();
-     
+     // if some value is entered in input bar then only execute this otherwise show an alert message 
      if(inputBar.value != ""){
+          // Structure of a single task that is added in the Tasks array in localStorage
           var task = {
-               taskName: inputBar.value,
-               isCompleted : false
+               taskName: inputBar.value,    
+               isCompleted : false,        //Tells the state of the task i.e. completed or not
+               id: Date.now()              //Acts as an id to each task [we used while marking as done]
           }
      }else{
           alert("Don't leave the box empty")
           return ;
      }
 
+     // getting the task array form the localStorge
      let tasks = localStorage.getItem("tasks");
 
+     //if tasks array is null i.e. user has enterd to the website for the first time
      if(tasks == null){
+          // we create an array and assign to tasks  
           tasks = [];
-     }else{
+     }else{       //tasks array NOT NULL i.e. tasks array has already been created and stored in localStorage
+          // parsing tasks array [i.e. getItem returns us string so converting it to array format] and assigning it to tasks
           tasks = JSON.parse(localStorage.getItem("tasks"));
      }
 
+     // pushing the newly created task to tasks array
      tasks.push(task);
+     // updating the tasks array in the localStorage 
      localStorage.setItem("tasks", JSON.stringify(tasks));
 
-     inputBar.value = "";
-     showAllTasks();
-     taskCount();
+     inputBar.value = "";               //emptying the inputBar so that next time it is already cleared
+     showAllTasks();                    //Re-rendering the list according to the new tasks array
+     noOfTasksLeft();                   //Changing the number of tasks left
+     eventListener();
 }
 
-// For adding task to localStorage and the task contain on click of Enter
+// For adding task to localStorage and the task container on click of Enter button
 function addTaskOnEnter(e){
-     // e.preventDefault();
 
+     // if any of the two enter button is clicked by user then submit button is clicked using code
      if(e.code == "Enter" || e.code == "NumpadEnter"){
           submitBtn.click();
      }
 }
 
-showAllTasks();
+// Function for rendering all the task in All container 
 function showAllTasks() {
 
-     // Remove the active-tab class from All and completed
-
+     localStorage.setItem("activeTab","All");
+     
+     // Remove the active-tab class from incomplete and completed
      if(inCompleteTab.classList.contains("active-tab")){
           inCompleteTab.classList.remove("active-tab");
      }
@@ -86,48 +87,61 @@ function showAllTasks() {
           completedTab.classList.remove("active-tab");
      }
 
-     // Add active-tab class in inComplete
+     // Adding active-tab class in inComplete
      allTab.classList.add("active-tab");
 
-     // Clear container
-     // allTasksContainer.innerHTML = "";
+     // Clearing the previously containing content from container so that new content can be added
      inCompleteTaskContainer.innerHTML = "";
      completeTaskContainer.innerHTML = "";
 
-
+     // getting the tasks array form the localStorge
      let tasks = localStorage.getItem("tasks");
-     // console.log(typeOf tasks);
+     // if tasks array is null that is no need to render the tasks so returning from here
      if(tasks == null){
           return;
      }
+     // converting 'string' to array 'object'
      tasks = JSON.parse(localStorage.getItem("tasks"));
      allTasksContainer.innerHTML = "";
+     // iterating over each and every task in task array and rendering according to the task completed or not
      tasks.forEach(task => {
+          // if isCompleted == true i.e. task is already completed so glowing done button and striking of the task by adding the doneBtnGlow and strikethrough class
           if(task.isCompleted == true){
                allTasksContainer.innerHTML += 
                `<li class="single-task-container flex-row">
                     <div class="check-and-task-name">
-                         <i class="taskDoneBtn fa-solid fa-circle-check"></i>
+                         <i class="taskDoneBtn doneBtnGlow fa-solid fa-circle-check"></i>
                          <label for="one" class="taskName strikethrough">${task.taskName}</label>
+                         <span style="display:none;">${task.id}</span>
                     </div>
                     <i class="deleteBtn fa-solid fa-trash-can"></i>
                </li>`
-          }else{
+          }
+          // if isComplete == false i.e. task is not finished so rendering the list without adding doneBtnGlow and strikethrough class 
+          else{
                allTasksContainer.innerHTML +=
                `<li class="single-task-container flex-row">
                     <div class="check-and-task-name">
                          <i class="taskDoneBtn fa-solid fa-circle-check"></i>
                          <label for="one" class="taskName">${task.taskName}</label>
+                         <span style="display:none;">${task.id}</span>
                     </div>
                     <i class="deleteBtn fa-solid fa-trash-can"></i>
                </li>`
           }
      });
+     eventListener();
 };
+// By default allTasks tab is rendered when the user enteres
+showAllTasks();
+
 
 function showInCompleteTasks(){
-     // Remove the active-tab class from All and completed
 
+     localStorage.setItem("activeTab","Incomplete");
+
+     
+     // Remove the active-tab class from All and completed
      if(allTab.classList.contains("active-tab")){
           allTab.classList.remove("active-tab");
      }
@@ -138,38 +152,40 @@ function showInCompleteTasks(){
      // Add active-tab class in inComplete
      inCompleteTab.classList.add("active-tab");
 
-     // Clear container
+     // Clearing the previously containing content from container so that new content can be added
      allTasksContainer.innerHTML = "";
      inCompleteTaskContainer.innerHTML = "";
      completeTaskContainer.innerHTML = "";
 
-     // display only those in which isComplete is false
      let tasks = localStorage.getItem("tasks");
-
+     
      // console.log(typeOf tasks);
      if(tasks == null){
           return;
      }
      tasks = JSON.parse(localStorage.getItem("tasks"));
-     tasks.filter(function(item) {
-          if(item.isCompleted == false){
+
+     tasks.filter(function(task) {
+          // display only those in which isComplete is false
+          if(task.isCompleted == false){
                inCompleteTaskContainer.innerHTML +=
                `<li class="single-task-container flex-row">
                <div class="check-and-task-name">
                     <i class="taskDoneBtn fa-solid fa-circle-check"></i>
-                    <label for="one" class="taskName">${item.taskName}</label>
+                    <label for="one" class="taskName">${task.taskName}</label>
+                    <span style="display:none;">${task.id}</span>
                </div>
                <i class="deleteBtn fa-solid fa-trash-can"></i>
                </li>`
-               // console.log(item.taskName)
           }
      })
-     
+     eventListener();
 }
 
 function showCompleteTasks(){
-      // Remove the active-tab class from All and Incompleted
+     localStorage.setItem("activeTab","Complete");
 
+      // Remove the active-tab class from All and Incompleted
      if(allTab.classList.contains("active-tab")){
           allTab.classList.remove("active-tab");
      }
@@ -180,33 +196,34 @@ function showCompleteTasks(){
      // Add active-tab class in inComplete
      completedTab.classList.add("active-tab");
 
-    // Clear container
+     // Clearing the previously containing content from container so that new content can be added
      allTasksContainer.innerHTML = "";
      inCompleteTaskContainer.innerHTML = "";
      completeTaskContainer.innerHTML = "";
 
-      // display only those in which isComplete is false
+     // display only those in which isComplete is false
      let tasks = localStorage.getItem("tasks");
 
-     // console.log(typeOf tasks);
      if(tasks == null){
           return;
      }
-
      tasks = JSON.parse(localStorage.getItem("tasks"));
-     tasks.filter(function(item) {
-          if(item.isCompleted === true){
+
+     tasks.filter(function(task) {
+          // displaying only those in which isCompleted is true
+          if(task.isCompleted === true){
                completeTaskContainer.innerHTML +=
                `<li class="single-task-container flex-row">
                <div class="check-and-task-name">
-                    <i class="taskDoneBtn fa-solid fa-circle-check"></i>
-                    <label for="one" class="taskName strikethrough">${item.taskName}</label>
+                    <i class="taskDoneBtn doneBtnGlow fa-solid fa-circle-check"></i>
+                    <label for="one" class="taskName strikethrough">${task.taskName}</label>
+                    <span style="display:none;">${task.id}</span>     
                </div>
                <i class="deleteBtn fa-solid fa-trash-can"></i>
                </li>`
-               console.log(item.taskName)
           }
      })
+     eventListener();
 }
 
 // function taskDone(e){
@@ -214,25 +231,31 @@ function showCompleteTasks(){
 //      console.log(this)
 // }
 
-function taskCount(){
+function noOfTasksLeft(){
+
      var tasks = localStorage.getItem("tasks");
      if(tasks == null){
           document.getElementById("taskLeftCount").innerHTML = 0;
           return;
      }
 
-
      tasks = JSON.parse(localStorage.getItem("tasks"));
+
+     // Diclaring and initializing the count variable as 0
      var count = 0;
+
      tasks.filter(function(item){
+          // Counting the number of tasks which are not completed
           if(item.isCompleted == false){
                count++;
           }
-     })
+     });
+     // Updating the count variable in DOM
      document.getElementById("taskLeftCount").innerHTML = count;
 }
-taskCount();
+noOfTasksLeft();
 
+// Function for completing all the tasks in one click
 function completeAllTasks(){
 
      let tasks = localStorage.getItem("tasks");
@@ -243,13 +266,181 @@ function completeAllTasks(){
      tasks = JSON.parse(localStorage.getItem("tasks"));
 
      tasks.forEach(function(task){
+          // Updaing the tasks array isCompleted as true
           if(task.isCompleted == false){
                task.isCompleted = true;
           }
      })
 
      // console.log(tasks);
-
+     // Storing the updated tasks array
      localStorage.setItem("tasks", JSON.stringify(tasks));
-     showAllTasks();
+
+     // Checking the active tab in localStorage
+     let activeTab = localStorage.getItem("activeTab");
+     // Rendering the list according to the activeTab value
+     switch(activeTab){
+          case "All":
+               showAllTasks();
+               break;
+          case "Incomplete":
+               showInCompleteTasks();
+               break;
+          case "Complete":
+               showCompleteTasks();
+               break;
+     }
+     noOfTasksLeft();
 }
+
+// Function for clearing completed tasks
+function clearCompleted(){
+     let tasks = localStorage.getItem("tasks");
+     if(tasks == null){
+          return;
+     }
+
+     tasks = JSON.parse(localStorage.getItem("tasks"));
+     // Creating the dummyTasks array which will contain incomplete tasks
+     let dummyTask = [];
+     tasks.forEach(function(task){
+          // pushing the task which are incomplete to dummyTasks array
+          if(task.isCompleted == false){
+               dummyTask.push(task);
+          }
+     })
+     // updating the tasks array to with the incomplete tasks
+     localStorage.setItem("tasks", JSON.stringify(dummyTask));
+
+     // Checking the active tab in localStorage
+     let activeTab = localStorage.getItem("activeTab");
+     // Rendering the list according to the activeTab value
+     switch(activeTab){
+          case "All":
+               showAllTasks();
+               break;
+          case "Incomplete":
+               showInCompleteTasks();
+               break;
+          case "Complete":
+               showCompleteTasks();
+               break;
+     }
+}
+
+
+function eventListener(){
+     // can't select this in starting because it is renedred later after element is added
+     let doneBtn = document.querySelectorAll(".taskDoneBtn");
+     let deleteBtn = document.querySelectorAll(".deleteBtn");
+     // Adding eventListener to all the done buttons
+     doneBtn.forEach(function(item){
+          item.addEventListener("click",thisTaskIsFinished);
+     });
+     
+     // Adding eventListener to all the delete buttons
+     deleteBtn.forEach(function(item){
+          item.addEventListener("click",deleteThisTask);
+     });
+}
+// eventListener();
+
+function thisTaskIsFinished(){
+     
+     if(this.classList.contains("doneBtnGlow") == false){
+          // let taskToBeMarkedAsDone = this.parentElement.children[1].innerHTML;
+          let idOfTaskToBeMarkedAsDone = this.parentElement.children[2].innerHTML;
+
+          let tasks = localStorage.getItem("tasks");
+          if(tasks == null){
+               return;
+          }
+
+          tasks = JSON.parse(localStorage.getItem("tasks"));
+
+          tasks.forEach(function(task){
+               if(task.id == idOfTaskToBeMarkedAsDone){
+                    task.isCompleted = true;
+               }
+          });
+
+          localStorage.setItem("tasks", JSON.stringify(tasks));
+     }
+     else{
+          // let taskToBeUnMarkedAsDone = this.parentElement.children[1].innerHTML;
+          let idOfTaskToBeUnMarkedAsDone = this.parentElement.children[2].innerHTML;
+
+          let tasks = localStorage.getItem("tasks");
+          if(tasks == null){
+               return;
+          }
+
+          tasks = JSON.parse(localStorage.getItem("tasks"));
+
+          tasks.forEach(function(task){
+               if(task.id == idOfTaskToBeUnMarkedAsDone){
+                    task.isCompleted = false;
+               }
+          });
+
+          localStorage.setItem("tasks", JSON.stringify(tasks));
+     }
+     showAllTasks();
+     noOfTasksLeft();
+     eventListener();
+     // location.reload();
+}
+
+function deleteThisTask(){
+
+     let thisTaskIsToBeDeleted = this.parentElement.children[0].children[1].innerHTML;
+     // console.log(thisTaskIsToBeDeleted)
+     // this.parentElement.remove()
+     
+     let tasks = localStorage.getItem("tasks");
+     if(tasks == null){
+          return;
+     }
+
+     tasks = JSON.parse(localStorage.getItem("tasks"));
+
+     tasks.forEach(function(task,index) {
+          if(task.taskName == thisTaskIsToBeDeleted){
+               tasks.splice(index,1);
+               // console.log(index);
+          }
+     });
+     localStorage.setItem("tasks", JSON.stringify(tasks));
+     // Checking the active tab in localStorage
+     let activeTab = localStorage.getItem("activeTab");
+     // Rendering the list according to the activeTab value
+     switch(activeTab){
+          case "All":
+               showAllTasks();
+               break;
+          case "Incomplete":
+               showInCompleteTasks();
+               break;
+          case "Complete":
+               showCompleteTasks();
+               break;
+     }
+     eventListener();
+     noOfTasksLeft();
+}
+
+// (function(){
+//      let tab = localStorage.getItem("activeTab");
+//      if(tab == null){
+//           showAllTasks();
+//      }
+//      else if(tab == "All"){
+//           showAllTasks();
+//      }
+//      else if(tab == "Incomplete"){
+//           showInCompleteTasks();
+//      }
+//      else if(tab == "Complete"){
+//           showCompleteTasks();
+//      }
+// })();
