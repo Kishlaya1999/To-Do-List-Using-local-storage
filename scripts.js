@@ -1,21 +1,25 @@
-// Selecting elements form DOM
+//*--------------------------------------------- Selecting elements form DOM------------------------------------------
+
 // Selecting the buttons in the application
 let submitBtn = document.getElementById("submitBtn");
 let completeAllBtn = document.getElementById("completeAllTasksBtn");
 let clearCompleteBtn = document.getElementById("clearCompleteBtn");
+
 // Selection the tabs
 let tabsItem = document.querySelectorAll(".tabsItem");
 let allTab = tabsItem[0];                         //All
 let inCompleteTab = tabsItem[1];                  //Uncomplete
 let completedTab = tabsItem[2];                   //Complete
+
 // Selecting Input Bar
 let inputBar = document.getElementById("inputBar");
+
 // Selection of Containeres
 let allTasksContainer = document.getElementById("todo-list-items");
 let inCompleteTaskContainer = document.getElementById("inCompleteTaskContainer");
 let completeTaskContainer = document.getElementById("completeTaskContainer");
 
-// Adding Event listeners to buttons 
+//*--------------------------------------------- Adding Event Listeners to selected elements--------------------------
 submitBtn.addEventListener("click",addTask);
 inputBar.addEventListener("keydown",addTaskOnEnter);
 allTab.addEventListener("click",showAllTasks);
@@ -24,7 +28,8 @@ completedTab.addEventListener("click",showCompleteTasks);
 completeAllBtn.addEventListener("click",completeAllTasks);
 clearCompleteBtn.addEventListener("click",clearCompleted);
 
-// Function 
+//*--------------------------------------------- Adding Functions-----------------------------------------------------
+
 
 // For adding task to localStorage and the task contain on click of submit button 
 function addTask(e){
@@ -60,7 +65,8 @@ function addTask(e){
      localStorage.setItem("tasks", JSON.stringify(tasks));
 
      inputBar.value = "";               //emptying the inputBar so that next time it is already cleared
-     showAllTasks();                    //Re-rendering the list according to the new tasks array
+     // showAllTasks();                    //Re-rendering the list according to the new tasks array
+     displayActiveTab();
      noOfTasksLeft();                   //Changing the number of tasks left
      eventListener();
 }
@@ -132,8 +138,6 @@ function showAllTasks() {
      });
      eventListener();
 };
-// By default allTasks tab is rendered when the user enteres
-showAllTasks();
 
 
 function showInCompleteTasks(){
@@ -226,11 +230,6 @@ function showCompleteTasks(){
      eventListener();
 }
 
-// function taskDone(e){
-//      e.preventDefault();
-//      console.log(this)
-// }
-
 function noOfTasksLeft(){
 
      var tasks = localStorage.getItem("tasks");
@@ -272,24 +271,10 @@ function completeAllTasks(){
           }
      })
 
-     // console.log(tasks);
      // Storing the updated tasks array
      localStorage.setItem("tasks", JSON.stringify(tasks));
 
-     // Checking the active tab in localStorage
-     let activeTab = localStorage.getItem("activeTab");
-     // Rendering the list according to the activeTab value
-     switch(activeTab){
-          case "All":
-               showAllTasks();
-               break;
-          case "Incomplete":
-               showInCompleteTasks();
-               break;
-          case "Complete":
-               showCompleteTasks();
-               break;
-     }
+     displayActiveTab();
      noOfTasksLeft();
 }
 
@@ -312,23 +297,10 @@ function clearCompleted(){
      // updating the tasks array to with the incomplete tasks
      localStorage.setItem("tasks", JSON.stringify(dummyTask));
 
-     // Checking the active tab in localStorage
-     let activeTab = localStorage.getItem("activeTab");
-     // Rendering the list according to the activeTab value
-     switch(activeTab){
-          case "All":
-               showAllTasks();
-               break;
-          case "Incomplete":
-               showInCompleteTasks();
-               break;
-          case "Complete":
-               showCompleteTasks();
-               break;
-     }
+     displayActiveTab();
 }
 
-
+// after buuton is clicked event listeners are removed so to add event listener I created this class
 function eventListener(){
      // can't select this in starting because it is renedred later after element is added
      let doneBtn = document.querySelectorAll(".taskDoneBtn");
@@ -343,12 +315,11 @@ function eventListener(){
           item.addEventListener("click",deleteThisTask);
      });
 }
-// eventListener();
 
 function thisTaskIsFinished(){
-     
+     // if it doesn't contais doneBtnGlow it means it's isCompleted is false hence we change to true else vice versa
      if(this.classList.contains("doneBtnGlow") == false){
-          // let taskToBeMarkedAsDone = this.parentElement.children[1].innerHTML;
+          // getting the id of the element that we have to mark as done
           let idOfTaskToBeMarkedAsDone = this.parentElement.children[2].innerHTML;
 
           let tasks = localStorage.getItem("tasks");
@@ -359,6 +330,7 @@ function thisTaskIsFinished(){
           tasks = JSON.parse(localStorage.getItem("tasks"));
 
           tasks.forEach(function(task){
+               // Iterting through the loop and whenever the id matches then changing its isCompleted as true
                if(task.id == idOfTaskToBeMarkedAsDone){
                     task.isCompleted = true;
                }
@@ -367,7 +339,7 @@ function thisTaskIsFinished(){
           localStorage.setItem("tasks", JSON.stringify(tasks));
      }
      else{
-          // let taskToBeUnMarkedAsDone = this.parentElement.children[1].innerHTML;
+          // getting the id of the element that we have to mark as undone
           let idOfTaskToBeUnMarkedAsDone = this.parentElement.children[2].innerHTML;
 
           let tasks = localStorage.getItem("tasks");
@@ -378,6 +350,7 @@ function thisTaskIsFinished(){
           tasks = JSON.parse(localStorage.getItem("tasks"));
 
           tasks.forEach(function(task){
+               // Iterting through the loop and whenever the id matches then changing its isCompleted as false
                if(task.id == idOfTaskToBeUnMarkedAsDone){
                     task.isCompleted = false;
                }
@@ -385,62 +358,59 @@ function thisTaskIsFinished(){
 
           localStorage.setItem("tasks", JSON.stringify(tasks));
      }
-     showAllTasks();
+     displayActiveTab();
      noOfTasksLeft();
      eventListener();
-     // location.reload();
 }
 
 function deleteThisTask(){
+     // adding the animation class to that item which has to be deleted
+     this.parentElement.classList.add("flip-out-diag-1-tr");
+     // running the rest of the functionality after 1 sec so that the animation gets completed
 
-     let thisTaskIsToBeDeleted = this.parentElement.children[0].children[1].innerHTML;
-     // console.log(thisTaskIsToBeDeleted)
-     // this.parentElement.remove()
-     
-     let tasks = localStorage.getItem("tasks");
-     if(tasks == null){
-          return;
-     }
-
-     tasks = JSON.parse(localStorage.getItem("tasks"));
-
-     tasks.forEach(function(task,index) {
-          if(task.taskName == thisTaskIsToBeDeleted){
-               tasks.splice(index,1);
-               // console.log(index);
+     setTimeout(()=>{
+          // getting the name of the element that we have to delete
+          let thisTaskIsToBeDeleted = this.parentElement.children[0].children[1].innerHTML;
+          
+          let tasks = localStorage.getItem("tasks");
+          if(tasks == null){
+               return;
           }
-     });
-     localStorage.setItem("tasks", JSON.stringify(tasks));
-     // Checking the active tab in localStorage
-     let activeTab = localStorage.getItem("activeTab");
-     // Rendering the list according to the activeTab value
-     switch(activeTab){
-          case "All":
-               showAllTasks();
-               break;
-          case "Incomplete":
-               showInCompleteTasks();
-               break;
-          case "Complete":
-               showCompleteTasks();
-               break;
-     }
-     eventListener();
-     noOfTasksLeft();
+     
+          tasks = JSON.parse(localStorage.getItem("tasks"));
+     
+          // iterating through the loop and when it matches with the element we have to delete then we remove that using splice function
+          tasks.forEach(function(task,index) {
+               if(task.taskName == thisTaskIsToBeDeleted){
+                    tasks.splice(index,1);
+               }
+          });
+          localStorage.setItem("tasks", JSON.stringify(tasks));
+          displayActiveTab();
+          eventListener();
+          noOfTasksLeft();
+     },1000)
 }
 
-// (function(){
-//      let tab = localStorage.getItem("activeTab");
-//      if(tab == null){
-//           showAllTasks();
-//      }
-//      else if(tab == "All"){
-//           showAllTasks();
-//      }
-//      else if(tab == "Incomplete"){
-//           showInCompleteTasks();
-//      }
-//      else if(tab == "Complete"){
-//           showCompleteTasks();
-//      }
-// })();
+function displayActiveTab(){
+     // Checking the active tab in localStorage
+     let activeTab = localStorage.getItem("activeTab");
+     // If user enters for the first time then only active tab would be null hence displaying all task container which would be blank
+     if(activeTab == null){
+          showAllTasks();
+          return;
+     }
+     // Rendering the list according to the activeTab value
+     switch(activeTab){
+               case "All":
+                    showAllTasks();
+                    break;
+               case "Incomplete":
+                    showInCompleteTasks();
+                    break;
+               case "Complete":
+                    showCompleteTasks();
+                    break;
+          }
+};
+displayActiveTab();
