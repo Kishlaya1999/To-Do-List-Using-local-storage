@@ -5,6 +5,16 @@
 }
 
 body {
+
+     /* Light Mode gradient  */
+     background-color: #8BC6EC;
+     background-image: linear-gradient(129deg, #8BC6EC 1%, #9599E2 59%);
+
+     /* Dark Mode gradient  */
+     /* background: #0f0c29;  
+     background: -webkit-linear-gradient(to top, #24243e, #302b63, #0f0c29);  
+     background: linear-gradient(to top, #24243e, #302b63, #0f0c29);   */
+
      font-family: 'Poppins', sans-serif;
      height: 100vh;
      width: 100vw;
@@ -13,8 +23,60 @@ body {
      justify-content: center;
 }
 
-.animate__animated.animate__backOutDown {
-     animation-duration: 5s;
+.box1 {
+     /* Light Mode Gradient */
+     background-color: #9599E2;
+     background-image: linear-gradient(34deg, #797ee2 32%, #72bcee 100%);
+     
+     /* Dark Mode Gradient */
+     /* background-color: #0f0c29;
+     background-image: linear-gradient(55deg, hsl(240deg 27% 30%) 32%, hsl(245deg 39% 40%) 100%); */
+
+     width: 160px;
+     height: 160px;
+     position: absolute;
+     top: 152px;
+     left: 440px;
+     /* filter: blur(2px); */
+     transform: rotate(45deg);
+}
+
+.box2 {
+     /* Light Mode Gradient */
+     background-color: hsl(237deg 57% 74%);
+     background-image: linear-gradient(182deg, #797ee2 0%, #72bcee 100%);
+     
+     /* Dark Mode Gradient */
+     /* background-color: #0f0c29;
+     background-image: linear-gradient(187deg, hsl(240deg 27% 30%) 32%, hsl(245deg 39% 40%) 100%); */
+
+     width: 180px;
+     height: 180px;
+     position: absolute;
+     left: 898px;
+     top: 430px;
+     border-radius: 50%;
+     /* filter: blur(3px); */
+}
+
+.box3 {
+     background-color: hsl(0deg 0% 100% / 30%);
+     width: 160px;
+     height: 160px;
+     position: absolute;
+     top: 152px;
+     left: 37px;
+     transform: rotate(146deg);
+}
+
+.box4 {
+     background-color: hsl(0deg 0% 100% / 30%);
+     width: 160px;
+     height: 160px;
+     position: absolute;
+     top: 152px;
+     left: 37px;
+     transform: rotate(146deg);
 }
 
 .flex-row {
@@ -38,13 +100,18 @@ main {
      height: 600px;
      width: 450px;
      border-radius: 10px;
-     /* background-color: hsl(0, 0%, 90%); */
-     box-shadow: 0 0 10px 5px;
+
+     /* From https://css.glass */
+     background: rgba(255, 255, 255, 0.02);
+     border-radius: 16px;
+     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+     backdrop-filter: blur(5px);
+     -webkit-backdrop-filter: blur(5px);
+     border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 /**---------------------------------------------------------------- Header (Input box)-------------------------------------------------------*/
 header {
-     /* background-color: rgb(255, 255, 255); */
      align-self: start;
 }
 
@@ -56,7 +123,7 @@ header {
 }
 
 .task-icon-container {
-     background-color: hsl(0deg 0% 92%);
+     background-color: hsl(0deg 0% 92% / 70%);
      width: 42px;
      height: 40px;
      display: flex;
@@ -67,12 +134,12 @@ header {
 
 .plus {
      border-radius: 0 7px 7px 0;
-     background-color: hsl(78, 56%, 55%);
+     background-color: hsla(78, 56%, 55%, 0.9);
      cursor: pointer;
 }
 
 .plus:hover {
-     background-color: #91BA35;
+     background-color: hsla(78, 56%, 45%, 0.9);
 }
 
 .task-icon-container i {
@@ -80,7 +147,7 @@ header {
 }
 
 .input-container input {
-     background-color: hsl(0deg 0% 92%);
+     background-color: hsl(0deg 0% 92% / 40%);
      width: 80%;
      height: 40px;
      border: none;
@@ -95,7 +162,8 @@ header {
 }
 
 input::placeholder {
-     font-size: 1rem;
+     font-size: 1.2rem;
+     color: rgb(45, 45, 45);
 }
 
 .complete-container {
@@ -109,14 +177,19 @@ input::placeholder {
 
 .complete-container span {
      width: 50%;
-     font-weight: bolder;
-     color: hsl(0deg 0% 40%);
-     font-size: 13px;
+     font-weight: bold;
+     color: rgb(82, 82, 82);
+     font-size: 15px;
      cursor: pointer;
 }
 
 .all-complete-container {
      gap: 5px;
+}
+
+.all-complete-container i {
+     font-size: 20px;
+     color: rgb(43, 43, 43);
 }
 
 /**-------------------------------------------------------Middle (TODOs box)--------------------------------------*/
@@ -129,7 +202,7 @@ input::placeholder {
      justify-content: space-between;
      /* background-color: aqua; */
      /* align-items: center; */
-     background-color: hsl(0deg 0% 92%);
+     /* background-color: hsl(0deg 0% 92%); */
      align-items: center;
      height: 60px;
      padding: 0 20px;
@@ -142,7 +215,12 @@ input::placeholder {
 
 li:nth-child(2n) {
      /* background-color: blue; */
-     background-color: hsl(0deg 0% 85%);
+     background-color: hsla(204, 78%, 69%, 0.5);
+}
+
+li:nth-child(2n+1) {
+     /* background-color: blue; */
+     background-color: hsla(237, 64%, 68%, 0.5);
 }
 
 .strikethrough {
@@ -154,7 +232,7 @@ li:nth-child(2n) {
 .uncomplete-tasks-container,
 .complete-tasks-container {
      overflow-y: scroll;
-     /* height:200px; */
+     height:450px;
      align-items: center;
      /* position: absolute; */
      gap: 5px;
@@ -174,7 +252,7 @@ li:nth-child(2n) {
 .single-task-container i {
      font-size: 25px;
      margin-right: 10px;
-     color: hsl(0, 0%, 60%);
+     color: hsl(0, 0%, 93%);
      transition: all 0.3s ease;
      cursor: pointer;
 }
@@ -182,15 +260,15 @@ li:nth-child(2n) {
 
 
 .single-task-container i.fa-circle-check:hover {
-     color: #91BA35;
+     color: hsla(123, 100%, 26%, 0.96);
 }
 
 .single-task-container i.fa-trash-can {
-     color: #CD0F0F;
+     color: #980000;
 }
 
 .doneBtnGlow {
-     color: #91BA35 !important;
+     color: hsla(123, 100%, 26%, 0.96) !important;
 }
 
 /* 
@@ -209,6 +287,7 @@ li:nth-child(2n) {
 footer {
      background-color: rgb(0, 0, 0);
      color: white;
+     border-radius: 0 0 10px 10px;
 }
 
 .tabs {
@@ -235,40 +314,6 @@ footer {
      background-color: white;
      border-radius: 0 0 5px 5px;
 }
+.fade-out-bck{-webkit-animation:fade-out-bck .7s both;animation:fade-out-bck .7s both}
 
-/* .flicker-out-1{-webkit-animation:flicker-out-1 2s linear both;animation:flicker-out-1 2s linear both}
-
-
-@-webkit-keyframes flicker-out-1{0%{opacity:1}13.9%{opacity:1}14%{opacity:0;-webkit-box-shadow:none;box-shadow:none}14.9%{opacity:0;-webkit-box-shadow:none;box-shadow:none}15%{opacity:1}22.9%{opacity:1}23%{opacity:0;-webkit-box-shadow:none;box-shadow:none}24.9%{opacity:0;-webkit-box-shadow:none;box-shadow:none}25%{opacity:1}34.9%{opacity:1}35%{opacity:0;-webkit-box-shadow:none;box-shadow:none}39.9%{opacity:0;-webkit-box-shadow:none;box-shadow:none}40%{opacity:1}42.9%{opacity:1}43%{opacity:0;-webkit-box-shadow:none;box-shadow:none}44.9%{opacity:0;-webkit-box-shadow:none;box-shadow:none}45%{opacity:1}50%{opacity:1}54.9%{opacity:1}55%{opacity:0;-webkit-box-shadow:none;box-shadow:none}69.4%{opacity:0;-webkit-box-shadow:none;box-shadow:none}69.5%{opacity:1}69.9%{opacity:1}70%{opacity:0;-webkit-box-shadow:none;box-shadow:none}79.4%{opacity:0;-webkit-box-shadow:none;box-shadow:none}79.9%{opacity:1}80%{opacity:0;-webkit-box-shadow:none;box-shadow:none}89.8%{opacity:0;-webkit-box-shadow:none;box-shadow:none}89.9%{opacity:1;-webkit-box-shadow:none;box-shadow:none}90%{opacity:0;-webkit-box-shadow:none;box-shadow:none}100%{opacity:0}}@keyframes flicker-out-1{0%{opacity:1}13.9%{opacity:1}14%{opacity:0;-webkit-box-shadow:none;box-shadow:none}14.9%{opacity:0;-webkit-box-shadow:none;box-shadow:none}15%{opacity:1}22.9%{opacity:1}23%{opacity:0;-webkit-box-shadow:none;box-shadow:none}24.9%{opacity:0;-webkit-box-shadow:none;box-shadow:none}25%{opacity:1}34.9%{opacity:1}35%{opacity:0;-webkit-box-shadow:none;box-shadow:none}39.9%{opacity:0;-webkit-box-shadow:none;box-shadow:none}40%{opacity:1}42.9%{opacity:1}43%{opacity:0;-webkit-box-shadow:none;box-shadow:none}44.9%{opacity:0;-webkit-box-shadow:none;box-shadow:none}45%{opacity:1}50%{opacity:1}54.9%{opacity:1}55%{opacity:0;-webkit-box-shadow:none;box-shadow:none}69.4%{opacity:0;-webkit-box-shadow:none;box-shadow:none}69.5%{opacity:1}69.9%{opacity:1}70%{opacity:0;-webkit-box-shadow:none;box-shadow:none}79.4%{opacity:0;-webkit-box-shadow:none;box-shadow:none}79.9%{opacity:1}80%{opacity:0;-webkit-box-shadow:none;box-shadow:none}89.8%{opacity:0;-webkit-box-shadow:none;box-shadow:none}89.9%{opacity:1;-webkit-box-shadow:none;box-shadow:none}90%{opacity:0;-webkit-box-shadow:none;box-shadow:none}100%{opacity:0}} */
-
-/* ----------------------------------------------
- * Generated by Animista on 2022-10-15 18:41:22
- * Licensed under FreeBSD License.
- * See http://animista.net/license for more info. 
- * w: http://animista.net, t: @cssanimista
- * ---------------------------------------------- */
- /* .rotate-out-center{-webkit-animation:rotate-out-center .6s cubic-bezier(.55,.085,.68,.53) both;animation:rotate-out-center .6s cubic-bezier(.55,.085,.68,.53) both}
-
-@-webkit-keyframes rotate-out-center{0%{-webkit-transform:rotate(0);transform:rotate(0);opacity:1}100%{-webkit-transform:rotate(-360deg);transform:rotate(-360deg);opacity:0}}@keyframes rotate-out-center{0%{-webkit-transform:rotate(0);transform:rotate(0);opacity:1}100%{-webkit-transform:rotate(-360deg);transform:rotate(-360deg);opacity:0}} */
-
-/* .roll-out-bottom{-webkit-animation:roll-out-bottom .6s ease-in both;animation:roll-out-bottom .6s ease-in both} */
-
-/* ----------------------------------------------
- * Generated by Animista on 2022-10-15 18:43:34
- * Licensed under FreeBSD License.
- * See http://animista.net/license for more info. 
- * w: http://animista.net, t: @cssanimista
- * ---------------------------------------------- */
-
-/* @-webkit-keyframes roll-out-bottom{0%{-webkit-transform:translateY(0) rotate(0deg);transform:translateY(0) rotate(0deg);opacity:1}100%{-webkit-transform:translateY(800px) rotate(540deg);transform:translateY(800px) rotate(540deg);opacity:0}}@keyframes roll-out-bottom{0%{-webkit-transform:translateY(0) rotate(0deg);transform:translateY(0) rotate(0deg);opacity:1}100%{-webkit-transform:translateY(800px) rotate(540deg);transform:translateY(800px) rotate(540deg);opacity:0}} */
-
-.flip-out-diag-1-tr{-webkit-animation:flip-out-diag-1-tr .45s cubic-bezier(.55,.085,.68,.53) both;animation:flip-out-diag-1-tr .45s cubic-bezier(.55,.085,.68,.53) both}
-
-/* ----------------------------------------------
- * Generated by Animista on 2022-10-15 18:48:57
- * Licensed under FreeBSD License.
- * See http://animista.net/license for more info. 
- * w: http://animista.net, t: @cssanimista
- * ---------------------------------------------- */
-
-@-webkit-keyframes flip-out-diag-1-tr{0%{-webkit-transform:rotate3d(1,1,0,0deg);transform:rotate3d(1,1,0,0deg);opacity:1}100%{-webkit-transform:rotate3d(1,1,0,70deg);transform:rotate3d(1,1,0,70deg);opacity:0}}@keyframes flip-out-diag-1-tr{0%{-webkit-transform:rotate3d(1,1,0,0deg);transform:rotate3d(1,1,0,0deg);opacity:1}100%{-webkit-transform:rotate3d(1,1,0,70deg);transform:rotate3d(1,1,0,70deg);opacity:0}}
+@-webkit-keyframes fade-out-bck{0%{-webkit-transform:translateZ(0);transform:translateZ(0);opacity:1}100%{-webkit-transform:translateZ(-80px);transform:translateZ(-80px);opacity:0}}@keyframes fade-out-bck{0%{-webkit-transform:translateZ(0);transform:translateZ(0);opacity:1}100%{-webkit-transform:translateZ(-80px);transform:translateZ(-80px);opacity:0}}
