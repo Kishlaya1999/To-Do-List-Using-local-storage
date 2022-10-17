@@ -4,16 +4,85 @@
      box-sizing: border-box;
 }
 
+:root{
+     /* Light Mode Colors */
+     --background-gradient-light-color-1:#8BC6EC;
+     --background-gradient-light-color-2:#9599E2;
+     --box1-background-gradient-light-color-1:#797ee2;
+     --box1-background-gradient-light-color-2:#72bcee;
+     --placeholder-light-text-color: #2d2d2d;
+     --taskDone-button-light-color: #008f07;
+     --delete-button-light-color:#980000;
+     --inputBar-light-text-color:#000000;
+     --text-light-color: #000000;
+     --text-light-shadow: #ffffff;
+     --single-task-light-odd-color:#797ee280;
+     --single-task-light-even-color:#72bcee80;
+     
+     /* Dark Mode Colors */
+     --background-gradient-dark-color-1:#004e92;
+     --background-gradient-dark-color-2:#000428;
+     --box1-background-gradient-dark-color-1:#0055a0;
+     --box1-background-gradient-dark-color-2:#010d76;
+     --placeholder-dark-text-color: #ffffff;
+     --taskDone-button-dark-color: #00c900;
+     --delete-button-dark-color:#de0000;
+     --inputBar-dark-text-color:#fff;
+     --text-dark-color: #ffffff;
+     --text-dark-shadow: #000000;
+     --single-task-dark-odd-color:#0055a080;
+     --single-task-dark-even-color:#010d765c;
+}
+
+[color-scheme="light"]{
+     --background-gradient-color-1: var(--background-gradient-light-color-1);
+     --background-gradient-color-2: var(--background-gradient-light-color-2);
+     --box1-background-gradient-color-1: var(--box1-background-gradient-light-color-1);
+     --box1-background-gradient-color-2: var(--box1-background-gradient-light-color-2);
+     --placeholder-text-color: var(--placeholder-light-text-color);
+     --taskDone-button-color: var(--taskDone-button-light-color);
+     --delete-button-color: var(--delete-button-light-color);
+     --inputBar-text-color: var(--inputBar-light-text-color);
+     --text-color: var(--text-light-color);
+     --text-shadow: var(--text-light-shadow);
+     --single-task-odd-color:var(--single-task-light-odd-color);
+     --single-task-even-color:var(--single-task-light-even-color);
+}
+
+[color-scheme="dark"]{
+     --background-gradient-color-1: var(--background-gradient-dark-color-1);
+     --background-gradient-color-2: var(--background-gradient-dark-color-2);
+     --box1-background-gradient-color-1: var(--box1-background-gradient-dark-color-1);
+     --box1-background-gradient-color-2: var(--box1-background-gradient-dark-color-2);
+     --placeholder-text-color: var(--placeholder-dark-text-color);
+     --taskDone-button-color: var(--taskDone-button-dark-color);
+     --delete-button-color: var(--delete-button-dark-color);
+     --inputBar-text-color: var(--inputBar-dark-text-color);
+     --text-color: var(--text-dark-color);
+     --text-shadow: var(--text-dark-shadow);
+     --single-task-odd-color:var(--single-task-dark-odd-color);
+     --single-task-even-color:var(--single-task-dark-even-color);
+}
+
+
+
 body {
 
      /* Light Mode gradient  */
-     background-color: #8BC6EC;
-     background-image: linear-gradient(129deg, #8BC6EC 1%, #9599E2 59%);
+     /* background-color: var(--background-gradient-color-1); 
+     background-image: linear-gradient(129deg, var(--background-gradient-color-1) 1%, var(--background-gradient-color-2) 59%); */
 
      /* Dark Mode gradient  */
-     /* background: #0f0c29;  
-     background: -webkit-linear-gradient(to top, #24243e, #302b63, #0f0c29);  
-     background: linear-gradient(to top, #24243e, #302b63, #0f0c29);   */
+     /* background: var(--background-gradient-dark-color-3);     */
+     /* background: linear-gradient(to top, var(--background-gradient-dark-color-1), var(--background-gradient-dark-color-2), var(--background-gradient-dark-color-3));   */
+     /* background: linear-gradient(to top, var(--background-gradient-dark-color-1), var(--background-gradient-dark-color-2));   */
+
+
+
+     background: var(--background-gradient-color-2);
+     background: -webkit-linear-gradient(to right, var(--background-gradient-color-1), var(--background-gradient-color-2)); 
+     background: linear-gradient(to right, var(--background-gradient-color-1), var(--background-gradient-color-2)); 
+
 
      font-family: 'Poppins', sans-serif;
      height: 100vh;
@@ -25,13 +94,13 @@ body {
 
 .box1 {
      /* Light Mode Gradient */
-     background-color: #9599E2;
-     background-image: linear-gradient(34deg, #797ee2 32%, #72bcee 100%);
+     /* background-color: var(--box1-background-gradient-color-1);
+     background-image: linear-gradient(34deg, var(--box1-background-gradient-color-1) 32%, var(--box1-background-gradient-color-2) 100%); */
      
      /* Dark Mode Gradient */
-     /* background-color: #0f0c29;
-     background-image: linear-gradient(55deg, hsl(240deg 27% 30%) 32%, hsl(245deg 39% 40%) 100%); */
-
+     background-color: var(--box1-background-gradient-color-2);
+     background-image: linear-gradient(180deg, var(--box1-background-gradient-color-1) 32%, var(--background-gradient-color-2) 100%);
+     
      width: 160px;
      height: 160px;
      position: absolute;
@@ -42,13 +111,14 @@ body {
 }
 
 .box2 {
+
      /* Light Mode Gradient */
-     background-color: hsl(237deg 57% 74%);
-     background-image: linear-gradient(182deg, #797ee2 0%, #72bcee 100%);
+     /* background-color: var(--box1-background-gradient-color-1);
+     background-image: linear-gradient(34deg, var(--box1-background-gradient-color-1) 32%, var(--box1-background-gradient-color-2) 100%); */
      
      /* Dark Mode Gradient */
-     /* background-color: #0f0c29;
-     background-image: linear-gradient(187deg, hsl(240deg 27% 30%) 32%, hsl(245deg 39% 40%) 100%); */
+     background-color: var(--box1-background-gradient-color-2);
+     background-image: linear-gradient(180deg, var(--box1-background-gradient-color-1) 32%, var(--background-gradient-color-2) 100%);
 
      width: 180px;
      height: 180px;
@@ -59,24 +129,28 @@ body {
      /* filter: blur(3px); */
 }
 
-.box3 {
-     background-color: hsl(0deg 0% 100% / 30%);
-     width: 160px;
-     height: 160px;
+#themeButton{
+     display: grid;
+     place-items: center;
      position: absolute;
-     top: 152px;
-     left: 37px;
-     transform: rotate(146deg);
+     right: 10px;
+     top: 10px;
+     background-color: #000;
+     border-radius: 50%;
+     width: 50px;
+     height: 50px;
+     cursor: pointer;
+     transition: all 0.3s ease-in-out;
+     /* border: 2px solid black; */
+}
+#themeButton:hover{
+     border: 2px solid white;
 }
 
-.box4 {
-     background-color: hsl(0deg 0% 100% / 30%);
-     width: 160px;
-     height: 160px;
-     position: absolute;
-     top: 152px;
-     left: 37px;
-     transform: rotate(146deg);
+#themeButton i{
+     color: #fff;
+     font-size: 25px;
+     transition: all 0.5s ease;
 }
 
 .flex-row {
@@ -100,17 +174,17 @@ main {
      height: 600px;
      width: 450px;
      border-radius: 10px;
-
-     /* From https://css.glass */
+     position: fixed;
+     /* Light Mode Color */
      background: rgba(255, 255, 255, 0.02);
      border-radius: 16px;
      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
      backdrop-filter: blur(5px);
      -webkit-backdrop-filter: blur(5px);
-     border: 1px solid rgba(255, 255, 255, 0.3);
+     border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
-/**---------------------------------------------------------------- Header (Input box)-------------------------------------------------------*/
+/**---------------------------------------------------------------- Header (Input box) --------------------------------------*/
 header {
      align-self: start;
 }
@@ -157,13 +231,17 @@ header {
      /* border-radius: 0 10px 10px 0; */
 }
 
+input[type="text"]{
+     color: var(--inputBar-text-color);
+}
+
 .input-container input:focus {
      outline: none;
 }
 
 input::placeholder {
      font-size: 1.2rem;
-     color: rgb(45, 45, 45);
+     color: var(--placeholder-text-color);
 }
 
 .complete-container {
@@ -178,9 +256,10 @@ input::placeholder {
 .complete-container span {
      width: 50%;
      font-weight: bold;
-     color: rgb(82, 82, 82);
+     color: var(--text-color);
      font-size: 15px;
      cursor: pointer;
+     text-shadow: 1px 1px var(--text-shadow);
 }
 
 .all-complete-container {
@@ -189,20 +268,16 @@ input::placeholder {
 
 .all-complete-container i {
      font-size: 20px;
-     color: rgb(43, 43, 43);
+     color: var(--text-color);
 }
 
-/**-------------------------------------------------------Middle (TODOs box)--------------------------------------*/
+/**-------------------------------------------------------Middle (TODOs box)------------------------------------------------------------------*/
 .middle {
-     /* background-color: rgb(255, 255, 255); */
      position: relative;
 }
 
 .single-task-container {
      justify-content: space-between;
-     /* background-color: aqua; */
-     /* align-items: center; */
-     /* background-color: hsl(0deg 0% 92%); */
      align-items: center;
      height: 60px;
      padding: 0 20px;
@@ -210,17 +285,14 @@ input::placeholder {
      border-radius: 5px;
      width: 97%;
      min-height: 50px;
-     /* margin: 10px 0; */
 }
 
 li:nth-child(2n) {
-     /* background-color: blue; */
-     background-color: hsla(204, 78%, 69%, 0.5);
+     background-color: var(--single-task-even-color);
 }
 
 li:nth-child(2n+1) {
-     /* background-color: blue; */
-     background-color: hsla(237, 64%, 68%, 0.5);
+     background-color: var(--single-task-odd-color);
 }
 
 .strikethrough {
@@ -234,8 +306,14 @@ li:nth-child(2n+1) {
      overflow-y: scroll;
      height:450px;
      align-items: center;
-     /* position: absolute; */
      gap: 5px;
+}
+
+/* Code for Hiding scrollbar */
+.all-tasks-container::-webkit-scrollbar, 
+.uncomplete-tasks-container::-webkit-scrollbar, 
+.complete-tasks-container::-webkit-scrollbar { 
+     display: none;  
 }
 
 /* .single-task-container{
@@ -257,47 +335,42 @@ li:nth-child(2n+1) {
      cursor: pointer;
 }
 
-
-
 .single-task-container i.fa-circle-check:hover {
-     color: hsla(123, 100%, 26%, 0.96);
+     color: var(--taskDone-button-color);
 }
 
 .single-task-container i.fa-trash-can {
-     color: #980000;
+     color: var(--delete-button-color);
 }
 
 .doneBtnGlow {
-     color: hsla(123, 100%, 26%, 0.96) !important;
+     color: var(--taskDone-button-color) !important;
 }
-
-/* 
-.single-task-container:hover i.fa-trash-can {
-     display: block;
-} */
 
 .taskName {
      font-size: 1.2rem;
      font-weight: 700;
+     color: var(--text-color);
 }
 
 
-/**---------------------------------------------------------------- Status (Task Status Bar)---------------------------------------------------------------*/
+/**---------------------------------------------------------------- Status (Task Status Bar)-----------------------------------------------------*/
 
 footer {
-     background-color: rgb(0, 0, 0);
-     color: white;
+     /* background-color: rgb(0, 0, 0); */
+     color: var(--text-color);
      border-radius: 0 0 10px 10px;
 }
 
 .tabs {
      padding: 0 7px 5px;
+     text-shadow: 1px 1px var(--text-shadow);
 }
 
 .task-left span {
      font-size: 14px;
-     color: hsl(0deg 0% 60%);
-     font-weight: 900;
+     text-shadow: 1px 1px var(--text-shadow);
+     font-weight: bold;
 
 }
 
@@ -305,15 +378,25 @@ footer {
      padding: 0 4px;
      font-size: 14px;
      font-weight: 900;
-     color: hsl(0deg 0% 60%);
      cursor: pointer;
 }
 
 .active-tab {
      color: black !important;
      background-color: white;
-     border-radius: 0 0 5px 5px;
+     border-radius: 5px;
 }
+
+.credits{
+     position: absolute;
+     bottom: 10px;
+     margin:10px auto;
+     font-weight: bold;
+     color: var(--text-color);
+     letter-spacing: 2px;
+     text-shadow: 1px 1px var(--text-shadow);
+}
+
 .fade-out-bck{-webkit-animation:fade-out-bck .7s both;animation:fade-out-bck .7s both}
 
 @-webkit-keyframes fade-out-bck{0%{-webkit-transform:translateZ(0);transform:translateZ(0);opacity:1}100%{-webkit-transform:translateZ(-80px);transform:translateZ(-80px);opacity:0}}@keyframes fade-out-bck{0%{-webkit-transform:translateZ(0);transform:translateZ(0);opacity:1}100%{-webkit-transform:translateZ(-80px);transform:translateZ(-80px);opacity:0}}

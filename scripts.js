@@ -19,6 +19,9 @@ let allTasksContainer = document.getElementById("todo-list-items");
 let inCompleteTaskContainer = document.getElementById("inCompleteTaskContainer");
 let completeTaskContainer = document.getElementById("completeTaskContainer");
 
+// Selection of theme button
+let themeButton = document.getElementById("themeButton");
+
 //*--------------------------------------------- Adding Event Listeners to selected elements--------------------------
 submitBtn.addEventListener("click", addTask);
 inputBar.addEventListener("keydown", addTaskOnEnter);
@@ -27,6 +30,7 @@ inCompleteTab.addEventListener("click", showInCompleteTasks);
 completedTab.addEventListener("click", showCompleteTasks);
 completeAllBtn.addEventListener("click", completeAllTasks);
 clearCompleteBtn.addEventListener("click", clearCompleted);
+themeButton.addEventListener("click",themeChanger);
 
 //*--------------------------------------------- Adding Functions-----------------------------------------------------
 
@@ -464,3 +468,45 @@ function displayActiveTab() {
      }
 };
 displayActiveTab();
+
+(function (){
+     let currentTheme = localStorage.getItem("theme");
+     if(currentTheme == null){
+          root.setAttribute("color-scheme","light");
+          themeButton.innerHTML = `<i class="fa-solid fa-moon"></i>`;
+          localStorage.setItem("theme","light");
+          return;
+     }
+
+     switch(currentTheme){
+          case "light":
+               root.setAttribute("color-scheme","light");
+               themeButton.innerHTML = `<i class="fa-solid fa-moon"></i>`;
+               break;
+          case "dark":
+               root.setAttribute("color-scheme","dark");
+               themeButton.innerHTML = `<i class="fa-solid fa-sun"></i>`;
+               themeButton.style.backgroundColor="white";
+               themeButton.childNodes[0].style.color = "black";
+               break;
+     }
+})();
+
+function themeChanger(){
+     let root = document.getElementById("root");
+     // let themeIcon = document.querySelector("#themeButton i");
+     if(root.getAttribute("color-scheme") == "light"){
+          root.setAttribute("color-scheme","dark");
+          themeButton.innerHTML = `<i class="fa-solid fa-sun"></i>`;
+          themeButton.style.backgroundColor="white";
+          themeButton.childNodes[0].style.color = "black";
+          localStorage.setItem("theme","dark");
+     }
+     else if(root.getAttribute("color-scheme") == "dark"){
+          root.setAttribute("color-scheme","light");
+          themeButton.innerHTML = `<i class="fa-solid fa-moon"></i>`;
+          themeButton.style.backgroundColor="black";
+          themeButton.childNodes[0].style.color = "white";
+          localStorage.setItem("theme","light");
+     }
+}
