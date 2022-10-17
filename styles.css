@@ -171,8 +171,10 @@ body {
 main {
      justify-content: space-between;
      align-items: center;
-     height: 600px;
-     width: 450px;
+     height: 70%;
+     width: 30%;
+     min-width: 350px;
+     min-height: 500px;
      border-radius: 10px;
      position: fixed;
      /* Light Mode Color */
