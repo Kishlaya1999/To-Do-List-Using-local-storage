@@ -147,7 +147,6 @@ function showAllTasks() {
      eventListener();
 };
 
-
 function showInCompleteTasks() {
 
      localStorage.setItem("activeTab", "Incomplete");
@@ -469,6 +468,7 @@ function displayActiveTab() {
 };
 displayActiveTab();
 
+// IIFE fuction which checks the localStorage and applies the presviously set theme
 (function (){
      let currentTheme = localStorage.getItem("theme");
      if(currentTheme == null){
@@ -492,6 +492,7 @@ displayActiveTab();
      }
 })();
 
+// function for handeling theme button changes
 function themeChanger(){
      let root = document.getElementById("root");
      // let themeIcon = document.querySelector("#themeButton i");

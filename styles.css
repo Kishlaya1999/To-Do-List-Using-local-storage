@@ -132,13 +132,14 @@ body {
 #themeButton{
      display: grid;
      place-items: center;
-     position: absolute;
+     /* position: absolute;
      right: 10px;
-     top: 10px;
+     top: 10px; */
+     margin: 10px;
      background-color: #000;
      border-radius: 50%;
-     width: 50px;
-     height: 50px;
+     width: 28px;
+     height: 28px;
      cursor: pointer;
      transition: all 0.3s ease-in-out;
      /* border: 2px solid black; */
@@ -149,7 +150,7 @@ body {
 
 #themeButton i{
      color: #fff;
-     font-size: 25px;
+     font-size: 15px;
      transition: all 0.5s ease;
 }
 
@@ -171,7 +172,7 @@ body {
 main {
      justify-content: space-between;
      align-items: center;
-     height: 70%;
+     height: 80%;
      width: 30%;
      min-width: 350px;
      min-height: 500px;
@@ -189,13 +190,14 @@ main {
 /**---------------------------------------------------------------- Header (Input box) --------------------------------------*/
 header {
      align-self: start;
+     height: 19%;
 }
 
 .input-container {
      padding: 15px 20px;
      display: flex;
      align-items: center;
-     justify-content: space-between;
+     /* justify-content: space-between; */
 }
 
 .task-icon-container {
@@ -224,7 +226,7 @@ header {
 
 .input-container input {
      background-color: hsl(0deg 0% 92% / 40%);
-     width: 80%;
+     width: 70%;
      height: 40px;
      border: none;
      font-size: 20px;
@@ -276,6 +278,7 @@ input::placeholder {
 /**-------------------------------------------------------Middle (TODOs box)------------------------------------------------------------------*/
 .middle {
      position: relative;
+     /* height: 80%; */
 }
 
 .single-task-container {
@@ -306,7 +309,7 @@ li:nth-child(2n+1) {
 .uncomplete-tasks-container,
 .complete-tasks-container {
      overflow-y: scroll;
-     height:450px;
+     height: 440px;
      align-items: center;
      gap: 5px;
 }
@@ -392,7 +395,7 @@ footer {
 .credits{
      position: absolute;
      bottom: 10px;
-     margin:10px auto;
+     margin:0px auto;
      font-weight: bold;
      color: var(--text-color);
      letter-spacing: 2px;
@@ -402,3 +405,11 @@ footer {
 .fade-out-bck{-webkit-animation:fade-out-bck .7s both;animation:fade-out-bck .7s both}
 
 @-webkit-keyframes fade-out-bck{0%{-webkit-transform:translateZ(0);transform:translateZ(0);opacity:1}100%{-webkit-transform:translateZ(-80px);transform:translateZ(-80px);opacity:0}}@keyframes fade-out-bck{0%{-webkit-transform:translateZ(0);transform:translateZ(0);opacity:1}100%{-webkit-transform:translateZ(-80px);transform:translateZ(-80px);opacity:0}}
+
+
+@media only screen and (max-width: 600px) {
+     main{
+          height: 70%;
+          width: 80%;
+     }
+}
